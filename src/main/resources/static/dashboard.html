@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SchoolMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>🎓 SchoolMS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="active" data-page="dashboard"><i>📊</i> Dashboard</a>
+                <a href="exams.html" data-page="exams"><i>📝</i> Exams</a>
+                <a href="exam-schedule.html" data-page="schedule"><i>📅</i> Exam Schedule</a>
+                <a href="marks-entry.html" data-page="marks"><i>✏️</i> Marks Entry</a>
+                <a href="results.html" data-page="results"><i>📊</i> Results</a>
+                <a href="report-card.html" data-page="report-card"><i>🎓</i> Report Card</a>
+                <a href="reports.html" data-page="reports"><i>📈</i> Reports</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button onclick="logout()" class="btn-logout"><i>🚪</i> Logout</button>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">Dashboard</h1>
+                <div class="user-info">
+                    <span id="userName">Admin User</span>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <div class="mb-4">
+                    <h2>Welcome back, <span id="welcomeName">Admin</span>!</h2>
+                    <p class="text-secondary">Here's an overview of the examination system.</p>
+                </div>
+                
+                <div class="stats-grid" id="statsGrid">
+                    <!-- Stats loaded dynamically, placeholder content below -->
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-info">
+                            <div class="stat-count" id="statTotalExams">0</div>
+                            <div class="stat-label">Total Exams</div>
+                        </div>
+                    </div>
+                    <div class="stat-card secondary">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <div class="stat-count" id="statUpcoming">0</div>
+                            <div class="stat-label">Upcoming Exams</div>
+                        </div>
+                    </div>
+                    <div class="stat-card warning">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-info">
+                            <div class="stat-count" id="statOngoing">0</div>
+                            <div class="stat-label">Ongoing Exams</div>
+                        </div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <div class="stat-count" id="statCompleted">0</div>
+                            <div class="stat-label">Completed Exams</div>
+                        </div>
+                    </div>
+                    <!-- Additional Row -->
+                    <div class="stat-card warning">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <div class="stat-count" id="statResultsPending">0</div>
+                            <div class="stat-label">Results Pending</div>
+                        </div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="stat-icon">📢</div>
+                        <div class="stat-info">
+                            <div class="stat-count" id="statPublished">0</div>
+                            <div class="stat-label">Published Results</div>
+                        </div>
+                    </div>
+                    <div class="stat-card primary">
+                        <div class="stat-icon">🎓</div>
+                        <div class="stat-info">
+                            <div class="stat-count" id="statStudentsEvaluated">0</div>
+                            <div class="stat-label">Students Evaluated</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-bar mt-4">
+                    <h3>Recent Exams</h3>
+                    <a href="exams.html" class="btn btn-primary"><i>+</i> Quick Create Exam</a>
+                </div>
+
+                <div class="card">
+                    <div class="table-responsive">
+                        <table id="recentExamsTable">
+                            <thead>
+                                <tr>
+                                    <th>Exam Name</th>
+                                    <th>Type</th>
+                                    <th>Class</th>
+                                    <th>Dates</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic Content -->
+                                <tr>
+                                    <td colspan="6" class="text-center text-secondary">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <!-- Confirm Dialog Container -->
+    <div id="confirmDialog" class="modal-overlay"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marks Entry - SchoolMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>🎓 SchoolMS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" data-page="dashboard"><i>📊</i> Dashboard</a>
+                <a href="exams.html" data-page="exams"><i>📝</i> Exams</a>
+                <a href="exam-schedule.html" data-page="schedule"><i>📅</i> Exam Schedule</a>
+                <a href="marks-entry.html" class="active" data-page="marks"><i>✏️</i> Marks Entry</a>
+                <a href="results.html" data-page="results"><i>📊</i> Results</a>
+                <a href="report-card.html" data-page="report-card"><i>🎓</i> Report Card</a>
+                <a href="reports.html" data-page="reports"><i>📈</i> Reports</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button onclick="logout()" class="btn-logout"><i>🚪</i> Logout</button>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">Marks Entry</h1>
+                <div class="user-info">
+                    <span id="userName">Admin User</span>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <div class="filter-bar">
+                    <div class="form-group">
+                        <label>Exam</label>
+                        <select id="examSelect" onchange="loadExamSubjects()">
+                            <option value="">-- Select Exam --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select id="subjectSelect" onchange="loadMarksEntry()" disabled>
+                            <option value="">-- Select Subject --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Class</label>
+                        <input type="text" id="className" readonly disabled class="bg-body">
+                    </div>
+                </div>
+
+                <div id="marksEntryArea" class="hidden">
+                    <div class="action-bar">
+                        <h3>Student List</h3>
+                        <div class="flex gap-2 align-center">
+                            <span id="marksStatusBadge"></span>
+                            <button class="btn btn-secondary" id="btnSaveDraft" onclick="saveMarks('DRAFT')">Save Draft</button>
+                            <button class="btn btn-success" id="btnSubmitMarks" onclick="submitMarks()">Submit & Lock</button>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-3" style="padding: 1rem; background-color: #f8fafc;">
+                        <div class="flex justify-between font-weight-500">
+                            <span>Max Marks: <span id="lblMaxMarks">0</span></span>
+                            <span>Theory Max: <span id="lblTheoryMax">0</span></span>
+                            <span>Practical Max: <span id="lblPracticalMax">0</span></span>
+                            <span>Passing: <span id="lblPassingMarks">0</span></span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="marks-table w-full" id="marksTable">
+                                <thead>
+                                    <tr>
+                                        <th>Roll No</th>
+                                        <th>Student Name</th>
+                                        <th class="text-center">Theory Marks</th>
+                                        <th class="text-center">Practical Marks</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-center">Absent</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic Content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="noSelectionState" class="empty-state">
+                    <i>✏️</i>
+                    <h3>Select Exam and Subject</h3>
+                    <p>Please select an exam and a subject to start entering marks.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <!-- Confirm Dialog Container -->
+    <div id="confirmDialog" class="modal-overlay"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/marks.js"></script>
+</body>
+</html>

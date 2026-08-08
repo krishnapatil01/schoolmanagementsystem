@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Schedule - SchoolMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>🎓 SchoolMS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" data-page="dashboard"><i>📊</i> Dashboard</a>
+                <a href="exams.html" data-page="exams"><i>📝</i> Exams</a>
+                <a href="exam-schedule.html" class="active" data-page="schedule"><i>📅</i> Exam Schedule</a>
+                <a href="marks-entry.html" data-page="marks"><i>✏️</i> Marks Entry</a>
+                <a href="results.html" data-page="results"><i>📊</i> Results</a>
+                <a href="report-card.html" data-page="report-card"><i>🎓</i> Report Card</a>
+                <a href="reports.html" data-page="reports"><i>📈</i> Reports</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button onclick="logout()" class="btn-logout"><i>🚪</i> Logout</button>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">Exam Schedule</h1>
+                <div class="user-info">
+                    <span id="userName">Admin User</span>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <div class="filter-bar">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Select Exam</label>
+                        <select id="examSelect" onchange="loadSchedules()">
+                            <option value="">-- Select an Exam --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-bar hidden" id="scheduleActionBar">
+                    <h3>Schedules for <span id="currentExamName"></span></h3>
+                    <button class="btn btn-primary" onclick="openScheduleModal()"><i>+</i> Add Schedule</button>
+                </div>
+
+                <div class="card hidden" id="scheduleCard">
+                    <div class="table-responsive">
+                        <table id="schedulesTable">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Max Marks</th>
+                                    <th>Passing</th>
+                                    <th>Theory/Prac Max</th>
+                                    <th>Room</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="noExamSelected" class="empty-state">
+                    <i>📅</i>
+                    <h3>No Exam Selected</h3>
+                    <p>Please select an exam from the dropdown above to view or manage its schedule.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create/Edit Schedule Modal -->
+    <div id="scheduleModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="scheduleModalTitle">Add Schedule</h3>
+                <button class="modal-close" onclick="closeScheduleModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleForm">
+                    <input type="hidden" id="scheduleId">
+                    <input type="hidden" id="modalExamId">
+                    <div class="form-group mb-3">
+                        <label>Subject <span class="text-danger">*</span></label>
+                        <select id="subjectSelect" required>
+                            <option value="">Select Subject</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Exam Date <span class="text-danger">*</span></label>
+                            <input type="date" id="examDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Room</label>
+                            <input type="text" id="room" placeholder="e.g. Hall A">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Start Time</label>
+                            <input type="time" id="startTime">
+                        </div>
+                        <div class="form-group">
+                            <label>End Time</label>
+                            <input type="time" id="endTime">
+                        </div>
+                    </div>
+                    <hr class="mb-3" style="border: 0; border-top: 1px solid var(--border);">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Max Marks <span class="text-danger">*</span></label>
+                            <input type="number" id="maxMarks" required min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Passing Marks <span class="text-danger">*</span></label>
+                            <input type="number" id="passingMarks" required min="1">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Theory Max Marks</label>
+                            <input type="number" id="theoryMaxMarks" value="0" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Practical Max Marks</label>
+                            <input type="number" id="practicalMaxMarks" value="0" min="0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Instructions</label>
+                        <textarea id="instructions" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeScheduleModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveSchedule()">Save Schedule</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <!-- Confirm Dialog Container -->
+    <div id="confirmDialog" class="modal-overlay"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/schedule.js"></script>
+</body>
+</html>

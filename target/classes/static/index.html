@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+    <div class="login-card">
+        <div class="login-header">
+            <h2>🎓 SchoolMS</h2>
+            <p>Examination Management Portal</p>
+        </div>
+        <div id="error-message" class="error-message" style="display: none;"></div>
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label for="email">Email / Username</label>
+                <input type="email" id="email" placeholder="admin@school.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div style="position: relative;">
+                    <input type="password" id="password" placeholder="••••••••" required style="padding-right: 40px;">
+                    <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--text-secondary);" title="Show/Hide Password">👁️</button>
+                </div>
+            </div>
+            <div class="form-group flex align-center gap-2" style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="rememberMe" style="width: auto;">
+                <label for="rememberMe" style="margin: 0; cursor: pointer;">Remember me</label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full" id="loginBtn">Login</button>
+        </form>
+        <div class="login-footer">
+            &copy; 2025 School Management System
+        </div>
+    </div>
+    
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

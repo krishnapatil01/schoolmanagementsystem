@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - SchoolMS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>🎓 SchoolMS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" data-page="dashboard"><i>📊</i> Dashboard</a>
+                <a href="exams.html" data-page="exams"><i>📝</i> Exams</a>
+                <a href="exam-schedule.html" data-page="schedule"><i>📅</i> Exam Schedule</a>
+                <a href="marks-entry.html" data-page="marks"><i>✏️</i> Marks Entry</a>
+                <a href="results.html" class="active" data-page="results"><i>📊</i> Results</a>
+                <a href="report-card.html" data-page="report-card"><i>🎓</i> Report Card</a>
+                <a href="reports.html" data-page="reports"><i>📈</i> Reports</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button onclick="logout()" class="btn-logout"><i>🚪</i> Logout</button>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <h1 class="page-title">Results Management</h1>
+                <div class="user-info">
+                    <span id="userName">Admin User</span>
+                </div>
+            </header>
+            
+            <div class="content-area">
+                <div class="filter-bar">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Select Exam</label>
+                        <select id="examSelect" onchange="loadResults()">
+                            <option value="">-- Select an Exam --</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-bar hidden" id="resultsActionBar">
+                    <div class="flex gap-2 align-center">
+                        <h3>Results List</h3>
+                        <span id="resultsStatusBadge" class="ml-2"></span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-secondary" id="btnCalculate" onclick="calculateResults()"><i>⚙️</i> Calculate Results</button>
+                        <button class="btn btn-success" id="btnPublish" onclick="publishResults()"><i>📢</i> Publish</button>
+                        <button class="btn btn-warning hidden" id="btnUnpublish" onclick="unpublishResults()"><i>↩️</i> Unpublish</button>
+                    </div>
+                </div>
+
+                <div class="card hidden" id="resultsCard">
+                    <div class="table-responsive">
+                        <table id="resultsTable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Roll No</th>
+                                    <th>Student Name</th>
+                                    <th>Total Marks</th>
+                                    <th>Percentage</th>
+                                    <th>Grade</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic Content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="noExamSelected" class="empty-state">
+                    <i>📊</i>
+                    <h3>No Exam Selected</h3>
+                    <p>Please select an exam to calculate or view results.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <!-- Confirm Dialog Container -->
+    <div id="confirmDialog" class="modal-overlay"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/results.js"></script>
+</body>
+</html>
