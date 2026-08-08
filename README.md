@@ -77,3 +77,14 @@ An end-to-end web application for school examination management, scheduling, mar
    ```bash
    git clone <your-repository-url>
    cd QIRO_TECH
+2.Build and Run with Maven: mvn spring-boot:run
+
+Access the Web Application:
+Open your browser and navigate to: http://localhost:8080
+ Default Login Credentials
+        Role	           Email	        Password
+System Administrator	admin@school.com	admin123
+ Running Automated Unit Tests
+To run the full backend unit test suite:
+bash
+mvn test
